@@ -1,6 +1,6 @@
 // Transfer.js
 import React, { useState } from 'react';
-import { db } from './firebaseConfig';
+import { db } from '../firebaseConfig';
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const Transfer = () => {

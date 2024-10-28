@@ -1,9 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import SignIn from './components/SignIn';
 import Home from './components/Home';
 import Transfer from './components/Transfer';
+import SignIn from './components/SignIn';
 
 function App() {
   return (
@@ -13,12 +13,12 @@ function App() {
           <h1>Banking App</h1>
         </header>
         <div className="container">
-          <Switch>
-            <Route path="/signin" component={SignIn} />
-            <Route path="/home" component={Home} />
-            <Route path="/transfer" component={Transfer} />
-            <Route path="/" exact component={SignIn} />
-          </Switch>
+          <Routes>
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/transfer" element={<Transfer />} />
+            <Route path="/" element={<SignIn />} />
+          </Routes>
         </div>
       </div>
     </Router>

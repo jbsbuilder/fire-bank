@@ -1,6 +1,6 @@
 // SignIn.js
 import React from 'react';
-import { auth, provider } from './firebaseConfig';
+import { auth, provider } from '../firebaseConfig';
 import { signInWithPopup } from "firebase/auth";
 
 const SignIn = () => {
