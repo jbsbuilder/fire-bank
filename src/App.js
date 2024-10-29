@@ -1,11 +1,21 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
+import SignIn from './components/SignIn';
 import Home from './components/Home';
 import Transfer from './components/Transfer';
-import SignIn from './components/SignIn';
+import { auth } from './firebaseConfig';
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
     <Router>
       <div className="App">
@@ -14,10 +24,10 @@ function App() {
         </header>
         <div className="container">
           <Routes>
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/transfer" element={<Transfer />} />
-            <Route path="/" element={<SignIn />} />
+            <Route path="/signin" element={user ? <Navigate to="/home" /> : <SignIn />} />
+            <Route path="/home" element={user ? <Home /> : <Navigate to="/signin" />} />
+            <Route path="/transfer" element={user ? <Transfer /> : <Navigate to="/signin" />} />
+            <Route path="/" element={user ? <Navigate to="/home" /> : <SignIn />} />
           </Routes>
         </div>
       </div>
