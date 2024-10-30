@@ -4,6 +4,7 @@ import { db } from '../firebaseConfig';
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebaseConfig';
+import SignOut from './SignOut';
 
 const Home = () => {
   const [totalMoney, setTotalMoney] = useState(0);
@@ -41,6 +42,7 @@ const Home = () => {
   }, []);
 
   const handleTransferClick = () => {
+    console.log('Transfer button clicked'); // Verify this log appears in the console
     navigate('/transfer');
   }
 
@@ -49,6 +51,7 @@ const Home = () => {
       <h1>Total Money Created: ${totalMoney}</h1>
       <h2>Your Balance: ${userBalance}</h2>
       <button onClick={handleTransferClick}>Go to Transfer</button>
+      <SignOut />
     </div>
   );
 };

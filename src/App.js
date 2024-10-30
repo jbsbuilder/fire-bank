@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import './App.css';
 import SignIn from './components/SignIn';
 import Home from './components/Home';
-import Transfer from './components/Transfer';
+import Transfer from './components/Transfer'; // Ensure this path is correct
 import { auth } from './firebaseConfig';
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
           <Routes>
             <Route path="/signin" element={user ? <Navigate to="/home" /> : <SignIn />} />
             <Route path="/home" element={user ? <Home /> : <Navigate to="/signin" />} />
-            <Route path="/transfer" element={user ? <Transfer /> : <Navigate to="/signin" />} />
+            <Route path="/transfer" element={user ? <Transfer /> : <Navigate to="/signin" />} /> {/* Ensure this route is defined */}
             <Route path="/" element={user ? <Navigate to="/home" /> : <SignIn />} />
           </Routes>
         </div>
