@@ -1,13 +1,14 @@
 // Home.js
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebaseConfig';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebaseConfig';
 
 const Home = () => {
   const [totalMoney, setTotalMoney] = useState(0);
   const [userBalance, setUserBalance] = useState(0);
-  const navigate = useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +21,23 @@ const Home = () => {
     };
 
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchUserBalance = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const userDocRef = doc(db, "users", user.uid);
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists()) {
+          setUserBalance(userDoc.data().balance);
+        }
+      } else {
+        setUserBalance(0);
+      }
+    };
+
+    fetchUserBalance();
   }, []);
 
   const handleTransferClick = () => {
